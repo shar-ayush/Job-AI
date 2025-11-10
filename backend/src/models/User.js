@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import bcrypt from "bcryptjs";
 const userSchema = new mongoose.Schema({
     username:{
         type: String,
@@ -21,6 +21,17 @@ const userSchema = new mongoose.Schema({
         default: ""
     }
 });
+// hashing password before saving can be added here as a pre-save hook using bcrypt before saving to db
+// 123456 => wehfbehbfw229u
+userSchema.pre("save", async function(next){
+    if(!this.isModified("password")) return next();
+
+    const salt = await bcrypt.genSalt(10);
+    this.password =  await bcrypt.hash(this.password, salt);
+
+    next();
+})
+
 
 const User = mongoose.model("User", userSchema);
 
