@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ""
     }
-});
+},{ timestamps: true });
 // hashing password before saving can be added here as a pre-save hook using bcrypt before saving to db
 // 123456 => wehfbehbfw229u
 userSchema.pre("save", async function(next){
