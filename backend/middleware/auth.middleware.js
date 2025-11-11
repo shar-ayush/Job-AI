@@ -1,0 +1,1 @@
+// create an inline middleware for authentication for protected routes
