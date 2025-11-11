@@ -1,5 +1,6 @@
 import express from "express";
 import "dotenv/config";
+//cors package to handle Cross-Origin Resource Sharing
 import cors from "cors";
 
 import authRoutes from "../routes/authRoutes.js";
