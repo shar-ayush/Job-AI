@@ -25,10 +25,9 @@ export default function Signup() {
   const router = useRouter();
 
   // Global state using Zustand
-  const {user, isLoading, register } = useAuthStore();
+  const {user, isLoading, register, token } = useAuthStore();
 
   const handleSignUp = async () => {
-    // console.log('🟦 Registering user:', fullName, email);
     const result = await register(fullName, email, password);
 
     if (result.success) {
@@ -36,7 +35,9 @@ export default function Signup() {
     } else {
       Alert.alert('Error', result.message);
     }
-};
+  };
+  console.log(user);
+  console.log(token);
 
 
   return (
