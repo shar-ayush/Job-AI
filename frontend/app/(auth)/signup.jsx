@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
   ActivityIndicator,
+  Alert,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -14,16 +15,29 @@ import {
   View,
 } from "react-native";
 import COLORS from "../../constants/colors";
+import { useAuthStore } from "../../store/authStore";
 
 export default function Signup() {
-  const [username, setUsername] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSignUp = async () => {};
+  // Global state using Zustand
+  const {user, isLoading, register } = useAuthStore();
+
+  const handleSignUp = async () => {
+    // console.log('🟦 Registering user:', fullName, email);
+    const result = await register(fullName, email, password);
+
+    if (result.success) {
+      Alert.alert('Success', 'Account created successfully!');
+    } else {
+      Alert.alert('Error', result.message);
+    }
+};
+
 
   return (
     <KeyboardAvoidingView
@@ -53,7 +67,7 @@ export default function Signup() {
 
         {/* Form */}
         <View style={styles.formContainer}>
-          {/* USERNAME */}
+          {/* Full name */}
           <View style={styles.inputContainer}>
             <Ionicons
               name="person-outline"
@@ -65,8 +79,8 @@ export default function Signup() {
               style={styles.input}
               placeholder="Full name"
               placeholderTextColor={COLORS.placeholderText}
-              value={username}
-              onChangeText={setUsername}
+              value={fullName}
+              onChangeText={setFullName}
               autoCapitalize="none"
             />
           </View>
