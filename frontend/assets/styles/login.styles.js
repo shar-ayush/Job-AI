@@ -1,5 +1,5 @@
 // styles/login.styles.js
-import { StyleSheet, Dimensions } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import COLORS from "../../constants/colors";
 
 const { width } = Dimensions.get("window");
@@ -20,24 +20,24 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   illustrationImage: {
-    width: width * 0.75,
-    height: width * 0.75,
+    width: width * 0.5,
+    height: width * 0.5,
   },
   card: {
     backgroundColor: COLORS.cardBackground,
     borderRadius: 16,
-    padding: 24,
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
-    borderWidth: 2,
-    borderColor: COLORS.border,
+    padding: 10,
+    // shadowColor: COLORS.black,
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.1,
+    // shadowRadius: 8,
+    // elevation: 4,
+    // borderWidth: 2,
+    // borderColor: COLORS.border,
     marginTop: -24,
   },
   header: {
-    alignItems: "center",
+    // alignItems: "center",
     marginBottom: 24,
   },
   title: {
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: COLORS.textSecondary,
-    textAlign: "center",
+    // textAlign: "center",
   },
   formContainer: {
     marginBottom: 16,
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: COLORS.primary,
-    borderRadius: 12,
+    borderRadius: 18,
     height: 50,
     justifyContent: "center",
     alignItems: "center",
@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: COLORS.white,
-    fontSize: 16,
-    fontWeight: "600",
+    fontSize: 17,
+    fontWeight: "500",
   },
   footer: {
     flexDirection: "row",

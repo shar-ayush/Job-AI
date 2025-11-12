@@ -1,17 +1,17 @@
 // FOREST
-const COLORS = {
-  primary: "#4CAF50",
-  textPrimary: "#2e5a2e",
-  textSecondary: "#688f68",
-  textDark: "#1b361b",
-  placeholderText: "#767676",
-  background: "#e8f5e9",
-  cardBackground: "#f1f8f2",
-  inputBackground: "#f4faf5",
-  border: "#c8e6c9",
-  white: "#ffffff",
-  black: "#000000",
-};
+// const COLORS = {
+//   primary: "#4CAF50",
+//   textPrimary: "#2e5a2e",
+//   textSecondary: "#688f68",
+//   textDark: "#1b361b",
+//   placeholderText: "#767676",
+//   background: "#e8f5e9",
+//   cardBackground: "#f1f8f2",
+//   inputBackground: "#f4faf5",
+//   border: "#c8e6c9",
+//   white: "#ffffff",
+//   black: "#000000",
+// };
 
 // RETRO
 /*
@@ -31,21 +31,21 @@ const COLORS = {
 */
 
 // OCEAN
-/*
-const COLORS = {
-  primary: "#1976D2", 
-  textPrimary: "#1a4971",
-  textSecondary: "#6d93b8", 
-  textDark: "#0d2b43", 
-  placeholderText: "#767676",
-  background: "#e3f2fd", 
-  cardBackground: "#f5f9ff",
-  inputBackground: "#f0f8ff", 
-  border: "#bbdefb",
-  white: "#ffffff",
-  black: "#000000",
-};
-*/
+
+// const COLORS = {
+//   primary: "#1976D2", 
+//   textPrimary: "#1a4971",
+//   textSecondary: "#6d93b8", 
+//   textDark: "#0d2b43", 
+//   placeholderText: "#767676",
+//   background: "#ffffff", 
+//   cardBackground: "#ffffff",
+//   inputBackground: "#f0f8ff", 
+//   border: "#bbdefb",
+//   white: "#ffffff",
+//   black: "#000000",
+// };
+
 
 // BLOSSOM
 /*
@@ -63,5 +63,16 @@ const COLORS = {
   black: "#000000",
 };
 */
+const COLORS = {
+  primary: '#2979FF',          // Bright blue (button)
+  background: '#F9F9FB',       // Soft white-gray background
+  white: '#FFFFFF',            // Card / input background
+  border: '#E5E7EB',           // Neutral light border
+  textDark: '#1E1E1E',         // Main text color
+  placeholderText: '#9CA3AF',  // Subtext and placeholders
+  iconGray: '#A1A1AA',          // Gray for icons
+};
+
+
 
 export default COLORS;
