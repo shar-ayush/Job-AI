@@ -11,31 +11,31 @@ const generateToken = (userId) => {
 
 router.post("/register", async (req, res) => {
     try {
-        const { username, email, password } = req.body;
+        const { fullName, email, password } = req.body;
         // Registration logic goes here
-        if(!username || !email || !password) {
+        if(!fullName || !email || !password) {
             return res.status(400).json({ message: "All fields are required" });
         }
         if(password.length < 6) {
             return res.status(400).json({ message: "Password must be at least 6 characters long" });
         }
-        if(username.length < 3) {
-            return res.status(400).json({ message: "Username must be at least 3 characters long" });
-        }
+        // if(username.length < 3) {
+        //     return res.status(400).json({ message: "Username must be at least 3 characters long" });
+        // }
 
         // Check if user already exists 
         const existingEmail = await User.findOne({ email });
         if(existingEmail) return res.status(400).json({ message: "Email already exists" });
 
-        const existingUsername = await User.findOne({ username });
-        if(existingUsername) return res.status(400).json({ message: "Username already exists" });
+        // const existingUsername = await User.findOne({ username });
+        // if(existingUsername) return res.status(400).json({ message: "Username already exists" });
 
         // Get random avatar
-        const profileImage = `https://api.dicebear.com/9.x/pixel-art/svg?seed=${username}`;
+        const profileImage = `https://api.dicebear.com/9.x/pixel-art/svg?seed=${encodeURIComponent(fullName)}`;
 
         // Create new user
         const user = new User({ 
-            username, 
+            fullName, 
             email, 
             password,
             profileImage
@@ -51,7 +51,7 @@ router.post("/register", async (req, res) => {
             token,
             user:{
                 id: user._id,
-                username: user.username,
+                fullName: user.fullName,
                 email: user.email,
                 profileImage: user.profileImage
             } 
@@ -84,7 +84,7 @@ router.post("/login", async (req, res) => {
             token,
             user:{
                 id: user._id,
-                username: user.username,
+                fullName: user.fullName,
                 email: user.email,
                 profileImage: user.profileImage
             } 
