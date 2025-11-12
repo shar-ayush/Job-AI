@@ -46,7 +46,7 @@ export default function Login() {
         <View style={styles.header}>
           <Text style={styles.title}>Sign In</Text>
           <Text style={styles.subtitle}>
-            Enter valid user name & password to continue
+            Enter valid Email & password to continue
           </Text>
         </View>
 
@@ -62,7 +62,7 @@ export default function Login() {
             />
             <TextInput
               style={styles.input}
-              placeholder="User name"
+              placeholder="Email"
               placeholderTextColor={COLORS.placeholderText}
               value={email}
               onChangeText={setEmail}
