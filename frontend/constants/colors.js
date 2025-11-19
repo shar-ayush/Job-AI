@@ -71,6 +71,11 @@ const COLORS = {
   textDark: '#1E1E1E',         // Main text color
   placeholderText: '#9CA3AF',  // Subtext and placeholders
   iconGray: '#A1A1AA',          // Gray for icons
+  textPrimary: "#7d2150", 
+  textSecondary: "#b06a8f", 
+  cardBackground: "#fff5f8", 
+  inputBackground: "#fef8fa",
+  black: "#000000",
 };
 
 
