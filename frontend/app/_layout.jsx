@@ -1,51 +1,100 @@
-import { Stack, useRouter, useSegments } from "expo-router";
+import { SplashScreen, Stack, useRouter, useSegments, useRootNavigationState } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SafeScreen from "../components/SafeScreen";
 import { useAuthStore } from "../store/authStore";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import {useFonts} from "expo-font";
+import {ActivityIndicator, View, StyleSheet} from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+
+SplashScreen.preventAutoHideAsync(); // keep splash screen visible until we decide to hide it
+
 
 export default function RootLayout() {
   const router = useRouter();
   const segments = useSegments();
-  const { checkAuth, user, token } = useAuthStore();
+  const navigationState = useRootNavigationState();
+  const { checkAuth, user, token, isCheckingAuth } = useAuthStore();
 
   const [isReady, setIsReady] = useState(false);
+  const [isNavigationReady, setIsNavigationReady] = useState(false);
 
-  // Run auth check first
+  const [fontsLoaded] = useFonts({
+    "JetBrainsMono-Medium": require("../assets/fonts/JetBrainsMono-Medium.ttf"),
+  });
+
+  // Hide splash screen when fonts are loaded
   useEffect(() => {
-    const init = async () => {
-      await checkAuth();        // ensure async complete
-      setIsReady(true);         // layout allowed to navigate
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  // Initial auth check
+  useEffect(() => {
+    const initAuth = async () => {
+      try {
+        await checkAuth();
+      } finally {
+        setIsReady(true);
+      }
     };
-    init();
+    
+    initAuth();
   }, []);
 
-  // Handle navigation ONLY after auth is ready and segments loaded
+  // Handle navigation after auth check and navigation state is ready
   useEffect(() => {
-    if (!isReady || segments.length === 0) return;
+    if (!isReady || !navigationState?.key) return;
+    if (isCheckingAuth) return;
 
     const inAuthScreen = segments[0] === "(auth)";
     const isSignedIn = !!user && !!token;
 
-    if (!isSignedIn && !inAuthScreen) {
-      router.replace("/(auth)");
+    if (isSignedIn) {
+      if (inAuthScreen) {
+        router.replace("/(tabs)");
+      }
+    } else {
+      if (!inAuthScreen) {
+        router.replace("/(auth)");
+      }
     }
+    
+    // Mark navigation as ready after first check
+    if (!isNavigationReady) {
+      setIsNavigationReady(true);
+    }
+  }, [isReady, user, token, segments, isCheckingAuth, navigationState, isNavigationReady]);
 
-    if (isSignedIn && inAuthScreen) {
-      router.replace("/(tabs)");
-    }
-  }, [isReady, user, token, segments]);
+  // Show loading indicator until everything is ready
+  if (!fontsLoaded || !isReady || !isNavigationReady) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaProvider>
+      <StatusBar style="light" />
       <SafeScreen>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="(auth)" />
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         </Stack>
       </SafeScreen>
-      <StatusBar style="dark" />
     </SafeAreaProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+});
