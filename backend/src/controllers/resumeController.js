@@ -62,3 +62,44 @@ export const uploadResume = async (req, res) => {
     res.status(500).json({ error: "Internal error" });
   }
 };
+
+export const getMyResumes = async (req, res) => {
+  try {
+    const resumes = await Resume.find({ uploadedBy: req.user.id })
+      .sort({ createdAt: -1 });
+
+    res.json({ success: true, resumes });
+  } catch (error) {
+    console.error("Get resumes error:", error);
+    res.status(500).json({ error: "Could not fetch resumes" });
+  }
+};
+
+export const deleteResume = async (req, res) => {
+  try {
+    const resume = await Resume.findById(req.params.id);
+
+    if (!resume) {
+      return res.status(404).json({ error: "Resume not found" });
+    }
+
+    // Check if the user owns the resume
+    if (resume.uploadedBy?.toString() !== req.user.id) {
+      return res.status(403).json({ error: "Not authorized" });
+    }
+
+    // Delete from Cloudinary
+    await cloudinary.uploader.destroy(resume.publicId, {
+      resource_type: "image"   // since we used resource_type image
+    });
+
+    // Remove from MongoDB
+    await Resume.findByIdAndDelete(req.params.id);
+
+    res.json({ success: true, message: "Resume deleted" });
+
+  } catch (error) {
+    console.error("Delete resume error:", error);
+    res.status(500).json({ error: "Failed to delete resume" });
+  }
+};
