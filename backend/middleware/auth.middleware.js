@@ -1,18 +1,7 @@
-// create an inline middleware for authentication for protected routes
+import jwt from "jsonwebtoken";
+import User from "../src/models/User.js";
 
-// Example usage: app.use('/protected-route', authMiddleware, protectedRouteHandler);
-
-// const response =  await fetch('http://localhost:3000/api/auth/verify', {
-//     method: 'POST',
-//     body: JSON.stringify({
-//         // You can add additional data here if needed
-//     }),
-//     headers: {
-//         'Authorization': `Bearer ${token}`
-//     }
-// });
-
-const protectRoute = async (req, res, next) => {
+const authenticateJWT = async (req, res, next) => {
   try {
     // get the token from the request headers
     // const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
@@ -36,9 +25,6 @@ const protectRoute = async (req, res, next) => {
   }
 };
 
-export default protectRoute;
+export default authenticateJWT;
 
-// When we want to protect a route, we can use this middleware like so:
-// router.get('/protected-route', protectRoute, (req, res) => {
-//     res.json({ message: "This is a protected route", user: req.user });
-// })
+

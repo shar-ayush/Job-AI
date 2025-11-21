@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function Create() {
+export default function Jobs() {
   return (
     <View>
-      <Text>Create tab</Text>
+      <Text>Jobs tab</Text>
     </View>
   )
 }

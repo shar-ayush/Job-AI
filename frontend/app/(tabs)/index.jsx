@@ -1,10 +1,14 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, ActivityIndicator, Alert } from "react-native";
+
 
 export default function Home() {
+ 
+
   return (
-    <View>
-      <Text>Home tab</Text>
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <TouchableOpacity>
+
+      </TouchableOpacity>
     </View>
   )
 }

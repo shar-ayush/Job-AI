@@ -36,9 +36,19 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="create"
+        name="jobs"
         options={{
-          title: "Create",
+          title: "Jobs",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="add-circle-outline" size={27} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="Resume"
+        options={{
+          title: "Resume",
           tabBarIcon: ({ color }) => (
             <Ionicons name="add-circle-outline" size={27} color={color} />
           ),
