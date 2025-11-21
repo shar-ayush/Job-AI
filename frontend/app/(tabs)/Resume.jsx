@@ -10,7 +10,7 @@ import {
 import * as DocumentPicker from "expo-document-picker";
 import { useRouter } from "expo-router";
 import {useAuthStore} from "../../store/authStore"
-
+const API_BASE_URL = "http://10.115.124.97:3000"
 
 export default function Resume() {
   const token = useAuthStore((state) => state.token);
@@ -58,7 +58,7 @@ export default function Resume() {
       setUploading(true);
 
       // 3. Upload to your backend
-      const res = await fetch("http://10.0.2.2:3000/api/resumes/upload", {
+      const res = await fetch(`${API_BASE_URL}/api/resumes/upload`, {
         method: "POST",
         headers: {
           "Content-Type": "multipart/form-data",
@@ -104,7 +104,7 @@ export default function Resume() {
   const fetchResumes = async () => {
     try {
       setLoadingResumes(true);
-      const res = await fetch("http://10.0.2.2:3000/api/resumes/my", {
+      const res = await fetch(`${API_BASE_URL}/api/resumes/my`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -127,7 +127,7 @@ export default function Resume() {
 
   const deleteResume = async (id) => {
     try {
-      const res = await fetch(`http://10.0.2.2:3000/api/resumes/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/resumes/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
